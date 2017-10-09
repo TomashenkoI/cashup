@@ -1,10 +1,13 @@
 package com.cashup.entity;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
 
 @Entity
+@Table(name = "orders")
 public class Order implements Serializable {
 
     public enum Currency {
@@ -20,16 +23,17 @@ public class Order implements Serializable {
     }
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(generator = "increment")
+    @GenericGenerator(name = "increment", strategy = "increment")
     @Column(name = "id")
-    private long id;
+    private int id;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "client_id", nullable = false)
     private Client client;
 
     @Column(columnDefinition = "TIMESTAMP")
-    private LocalDateTime date;
+    private Timestamp date;
 
     private long price;
 
@@ -47,11 +51,11 @@ public class Order implements Serializable {
         this.client = client;
     }
 
-    public LocalDateTime getDate() {
+    public Timestamp getDate() {
         return date;
     }
 
-    public void setDate(LocalDateTime date) {
+    public void setDate(Timestamp date) {
         this.date = date;
     }
 

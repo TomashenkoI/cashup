@@ -19,7 +19,7 @@ public class Client implements Serializable {
     @GeneratedValue(generator = "increment")
     @GenericGenerator(name = "increment", strategy = "increment")
     @Column(name = "client_id")
-    private long id;
+    private int id;
 
     @Column(name = "firstname")
     private String firstName;

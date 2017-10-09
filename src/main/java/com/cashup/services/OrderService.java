@@ -5,7 +5,9 @@ import com.cashup.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 public class OrderService {
@@ -20,6 +22,10 @@ public class OrderService {
         this.orderRepository = orderRepository;
     }
 
+    public List<Order> getAllOrders() {
+        return orderRepository.findAll();
+    }
+
     public Order getOrder(){
         return orderRepository.findOne(1);
     }
@@ -30,7 +36,9 @@ public class OrderService {
         order.setCurrency(Order.Currency.EUR);
         order.setPrice(1000);
         order.setStatus(Order.Status.OPEN);
-        order.setDate(LocalDateTime.now());
+        order.setDate(Timestamp.valueOf(LocalDateTime.now()));
+
+        orderRepository.save(order);
     }
 
 }
