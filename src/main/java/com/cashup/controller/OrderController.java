@@ -3,9 +3,7 @@ package com.cashup.controller;
 import com.cashup.entity.Order;
 import com.cashup.services.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -15,14 +13,29 @@ public class OrderController {
     @Autowired
     private OrderService orderService;
 
-    @RequestMapping(value = "/orders", method = RequestMethod.GET)
+    @RequestMapping(value = "/order", method = RequestMethod.GET)
     public List<Order> getOrders() {
         return orderService.getAllOrders();
     }
 
-    @RequestMapping(value = "/save" , method = RequestMethod.GET)
-    public void saveOrder() {
-        orderService.saveOrder();
+    @RequestMapping(value = "/order/{id}", method = RequestMethod.GET)
+    public Order getOrderById(@PathVariable(name = "id") int id) {
+        return orderService.getOrder(id);
+    }
+
+    @RequestMapping(value = "/order", method = RequestMethod.POST)
+    public void deleteOrder(@RequestBody Order order) {
+        orderService.saveOrder(order);
+    }
+
+    @RequestMapping(value = "/order/{id}" , method = RequestMethod.DELETE)
+    public void deleteOrder(@PathVariable(name = "id") int id) {
+        orderService.deleteOrder(id);
+    }
+
+    @RequestMapping(value = "/order", method = RequestMethod.PUT)
+    public void updateOrder(@RequestBody Order order) {
+        orderService.updateOrder(order);
     }
 
 }

@@ -79,15 +79,4 @@ public class Client implements Serializable {
         this.birthday = birthday;
     }
 
-    @Override
-    public String toString() {
-        return "Client{" +
-                "id=" + id +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", inn=" + inn +
-                ", birthday=" + birthday +
-                ", sex=" + sex +
-                '}';
-    }
 }

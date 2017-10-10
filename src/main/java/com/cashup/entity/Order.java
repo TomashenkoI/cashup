@@ -5,6 +5,7 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "orders")
@@ -19,7 +20,7 @@ public class Order implements Serializable {
     public enum Status {
         OPEN,
         CONFIRMED,
-        CLOSED
+        CLOSED;
     }
 
     @Id
@@ -28,20 +29,24 @@ public class Order implements Serializable {
     @Column(name = "id")
     private int id;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     @JoinColumn(name = "client_id", nullable = false)
     private Client client;
 
     @Column(columnDefinition = "TIMESTAMP")
-    private Timestamp date;
+    private Timestamp date = Timestamp.valueOf(LocalDateTime.now());
 
     private long price;
 
     @Enumerated(EnumType.STRING)
-    private Currency currency;
+    private Currency currency = Currency.UAH;
 
     @Enumerated(EnumType.STRING)
-    private Status status;
+    private Status status = Status.OPEN;
+
+    public int getId() {
+        return id;
+    }
 
     public Client getClient() {
         return client;
