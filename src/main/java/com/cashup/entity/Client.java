@@ -34,6 +34,11 @@ public class Client implements Serializable {
     @Enumerated(EnumType.STRING)
     private Sex sex;
 
+    // For display client id in json
+    public int getId() {
+        return id;
+    }
+
     public String getFirstName() {
         return firstName;
     }
@@ -72,5 +77,17 @@ public class Client implements Serializable {
 
     public void setBirthday(Date birthday) {
         this.birthday = birthday;
+    }
+
+    @Override
+    public String toString() {
+        return "Client{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", inn=" + inn +
+                ", birthday=" + birthday +
+                ", sex=" + sex +
+                '}';
     }
 }

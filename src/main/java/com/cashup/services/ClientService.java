@@ -5,7 +5,6 @@ import com.cashup.repository.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
 import java.util.List;
 
 @Service
@@ -22,19 +21,20 @@ public class ClientService {
         return clientRepository.findAll();
     }
 
-    public void addClient() {
-        Client client = new Client();
-        client.setFirstName("test");
-        client.setLastName("test");
-        client.setInn(12345678);
-        client.setSex(Client.Sex.MALE);
-        client.setBirthday(new Date());
-
+    public void addClient(Client client) {
         clientRepository.save(client);
     }
 
-    public Client getClient() {
-        return clientRepository.findOne(1);
+    public Client getClient(int id) {
+        return clientRepository.findOne(id);
+    }
+
+    public void deleteClient(int id) {
+        clientRepository.delete(id);
+    }
+
+    public void updateClient(Client client) {
+        clientRepository.saveAndFlush(client);
     }
 
 }
