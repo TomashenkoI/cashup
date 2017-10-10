@@ -43,4 +43,11 @@ public class OrderService {
     public List<Order> getOrdersByClient(int id) {
         return orderRepository.findByClient(clientRepository.getOne(id));
     }
+
+    public void confirmOrder(int id) {
+        Order order = orderRepository.findOne(id);
+        order.setStatus(Order.Status.CONFIRMED);
+
+        orderRepository.saveAndFlush(order);
+    }
 }

@@ -38,4 +38,13 @@ public class OrderController {
         orderService.updateOrder(order);
     }
 
+    @RequestMapping(value = "/order/client/{id}", method = RequestMethod.GET)
+    public List<Order> getOrdersByClientId(@PathVariable(name = "id") int id) {
+        return orderService.getOrdersByClient(id);
+    }
+
+    @RequestMapping(value = "/order/{id}/confirm", method = RequestMethod.GET)
+    public void confirmOrder(@PathVariable(name = "id") int id) {
+        orderService.confirmOrder(id);
+    }
 }
