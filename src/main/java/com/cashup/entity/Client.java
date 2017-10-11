@@ -79,4 +79,31 @@ public class Client implements Serializable {
         this.birthday = birthday;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Client)) return false;
+
+        Client client = (Client) o;
+
+        if (id != client.id) return false;
+        if (inn != client.inn) return false;
+        if (!firstName.equals(client.firstName)) return false;
+        if (!lastName.equals(client.lastName)) return false;
+        if (!birthday.equals(client.birthday)) return false;
+        if (sex != client.sex) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id;
+        result = 31 * result + firstName.hashCode();
+        result = 31 * result + lastName.hashCode();
+        result = 31 * result + inn;
+        result = 31 * result + birthday.hashCode();
+        result = 31 * result + sex.hashCode();
+        return result;
+    }
 }

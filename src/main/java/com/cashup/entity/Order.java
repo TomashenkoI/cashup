@@ -29,7 +29,7 @@ public class Order implements Serializable {
     @Column(name = "id")
     private int id;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "client_id", nullable = false)
     private Client client;
 
@@ -86,5 +86,32 @@ public class Order implements Serializable {
 
     public void setStatus(Status status) {
         this.status = status;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Order)) return false;
+
+        Order order = (Order) o;
+
+        if (id != order.id) return false;
+        if (price != order.price) return false;
+        if (!client.equals(order.client)) return false;
+        if (!date.equals(order.date)) return false;
+        if (currency != order.currency) return false;
+        return status == order.status;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id;
+        result = 31 * result + client.hashCode();
+        result = 31 * result + date.hashCode();
+        result = 31 * result + (int) (price ^ (price >>> 32));
+        result = 31 * result + currency.hashCode();
+        result = 31 * result + status.hashCode();
+        return result;
     }
 }
