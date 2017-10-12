@@ -1,8 +1,10 @@
 package com.cashup.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
@@ -29,13 +31,15 @@ public class Order implements Serializable {
     @Column(name = "id")
     private int id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "client_id", nullable = false)
+    @JsonBackReference
     private Client client;
 
     @Column(columnDefinition = "TIMESTAMP")
     private Timestamp date = Timestamp.valueOf(LocalDateTime.now());
 
+    @NotNull
     private long price;
 
     @Enumerated(EnumType.STRING)

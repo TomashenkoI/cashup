@@ -1,10 +1,14 @@
 package com.cashup.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "client")
@@ -22,9 +26,11 @@ public class Client implements Serializable {
     private int id;
 
     @Column(name = "firstname")
+    @NotNull
     private String firstName;
 
     @Column(name = "lastname")
+    @NotNull
     private String lastName;
 
     private int inn;
@@ -34,7 +40,11 @@ public class Client implements Serializable {
     @Enumerated(EnumType.STRING)
     private Sex sex;
 
-    // For display client id in json
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST,
+            mappedBy = "client")
+    @JsonManagedReference
+    private Set<Order> orders = new HashSet<>();
+
     public int getId() {
         return id;
     }
@@ -77,6 +87,14 @@ public class Client implements Serializable {
 
     public void setBirthday(Date birthday) {
         this.birthday = birthday;
+    }
+
+    public Set<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(Set<Order> orders) {
+        this.orders = orders;
     }
 
     @Override
