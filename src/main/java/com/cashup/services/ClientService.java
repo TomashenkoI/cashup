@@ -1,40 +1,19 @@
 package com.cashup.services;
 
 import com.cashup.entity.Client;
-import com.cashup.repository.ClientRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
-public class ClientService {
+public interface ClientService {
 
-    private ClientRepository clientRepository;
+    List<Client> getAll();
 
-    @Autowired
-    public ClientService(ClientRepository clientRepository) {
-        this.clientRepository = clientRepository;
-    }
+    void addClient(Client client);
 
-    public List<Client> getAll() {
-        return clientRepository.findAll();
-    }
+    Client getClient(int id);
 
-    public void addClient(Client client) {
-        clientRepository.save(client);
-    }
+    void deleteClient(int id);
 
-    public Client getClient(int id) {
-        return clientRepository.findOne(id);
-    }
-
-    public void deleteClient(int id) {
-        clientRepository.delete(id);
-    }
-
-    public void updateClient(Client client) {
-        clientRepository.saveAndFlush(client);
-    }
+    void updateClient(Client client);
 
 }

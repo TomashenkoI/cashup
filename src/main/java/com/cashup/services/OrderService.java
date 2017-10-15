@@ -1,53 +1,23 @@
 package com.cashup.services;
 
 import com.cashup.entity.Order;
-import com.cashup.repository.ClientRepository;
-import com.cashup.repository.OrderRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
-public class OrderService {
+public interface OrderService {
 
-    private OrderRepository orderRepository;
-    private ClientRepository clientRepository;
+    List<Order> getAllOrders();
 
-    @Autowired
-    public OrderService(OrderRepository orderRepository, ClientRepository clientRepository) {
-        this.orderRepository = orderRepository;
-        this.clientRepository = clientRepository;
-    }
+    Order getOrder(int id);
 
-    public List<Order> getAllOrders() {
-        return orderRepository.findAll();
-    }
+    void saveOrder(Order order);
 
-    public Order getOrder(int id){
-        return orderRepository.findOne(id);
-    }
+    void deleteOrder(int id);
 
-    public void saveOrder(Order order) {
-        orderRepository.save(order);
-    }
+    void updateOrder(Order order);
 
-    public void deleteOrder(int id) {
-        orderRepository.delete(id);
-    }
+    List<Order> getOrdersByClient(int id);
 
-    public void updateOrder(Order order) {
-        orderRepository.saveAndFlush(order);
-    }
+    void confirmOrder(int id);
 
-    public List<Order> getOrdersByClient(int id) {
-        return orderRepository.findByClient(clientRepository.getOne(id));
-    }
-
-    public void confirmOrder(int id) {
-        Order order = orderRepository.findOne(id);
-        order.setStatus(Order.Status.CONFIRMED);
-
-        orderRepository.saveAndFlush(order);
-    }
 }

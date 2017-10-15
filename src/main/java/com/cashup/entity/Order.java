@@ -1,6 +1,6 @@
 package com.cashup.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -31,9 +31,9 @@ public class Order implements Serializable {
     @Column(name = "id")
     private int id;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     @JoinColumn(name = "client_id", nullable = false)
-    @JsonBackReference
+    @JsonManagedReference
     private Client client;
 
     @Column(columnDefinition = "TIMESTAMP")

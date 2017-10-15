@@ -1,6 +1,6 @@
 package com.cashup.entity;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -42,7 +42,7 @@ public class Client implements Serializable {
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST,
             mappedBy = "client")
-    @JsonManagedReference
+    @JsonBackReference
     private Set<Order> orders = new HashSet<>();
 
     public int getId() {
