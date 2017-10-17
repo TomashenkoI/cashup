@@ -52,6 +52,10 @@ public class Order implements Serializable {
         return id;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public Client getClient() {
         return client;
     }
